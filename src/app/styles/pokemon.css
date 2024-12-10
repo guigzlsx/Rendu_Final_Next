@@ -1,162 +1,180 @@
 body {
-    background-color: #5db9ff;
+  background-color: #5db9ff;
 }
 
 .page-title {
-    text-align: center;
-    padding: 1rem 0;
-    top: 0;
-    left: 0;
-    position: sticky;
-    background-color: #363b81;
+  text-align: center;
+  padding: 1rem 0;
+  top: 0;
+  left: 0;
+  position: sticky;
+  background-color: #363b81;
 }
 
 .page-title img {
-    width: auto;
-    height: 10vh;
+  width: auto;
+  height: 10vh;
 }
 
 .main-section {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
 }
 
 .pokemon-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 .pokemon-card {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 250px;
-    padding: 15px;
-    margin: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    text-align: center;
-    transition: all 0.3s ease;
-    cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 250px;
+  padding: 15px;
+  margin: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .pokemon-card:hover {
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  transform: scale(1.05);
 }
 
 .pokemon-card img {
-    width: 100%;
-    height: auto;
-    transition: all 0.3s ease;
+  width: 100%;
+  height: auto;
+  transition: all 0.3s ease;
 }
 
 .pokemon-card:hover img {
-    filter: drop-shadow(18px -10px 4px rgba(0, 0, 0, 0.3)) brightness(1.1);
+  filter: drop-shadow(18px -10px 4px rgba(0, 0, 0, 0.3)) brightness(1.1);
 }
 
 .pokemon-card h2 {
-    text-align: center;
-    margin: 0 0 15px 0;
-    text-transform: capitalize;
+  text-align: center;
+  margin: 0 0 15px 0;
+  text-transform: capitalize;
 }
 
 .pokemon-card-image {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .bug {
-    background-color: #A6B91A;
+  background-color: #a6b91a;
 }
 
 .dark {
-    background-color: #705746;
+  background-color: #705746;
 }
 
 .dragon {
-    background-color: #6F35FC;
+  background-color: #6f35fc;
 }
 
 .electric {
-    background-color: #F7D02C;
+  background-color: #f7d02c;
 }
 
 .fairy {
-    background-color: #D685AD;
+  background-color: #d685ad;
 }
 
 .fighting {
-    background-color: #C22E28;
+  background-color: #c22e28;
 }
 
 .fire {
-    background-color: #EE8130;
+  background-color: #ee8130;
 }
 
 .flying {
-    background-color: #A98FF3;
+  background-color: #a98ff3;
 }
 
 .ghost {
-    background-color: #735797;
+  background-color: #735797;
 }
 
 .grass {
-    background-color: #7AC74C;
+  background-color: #7ac74c;
 }
 
 .ground {
-    background-color: #E2BF65;
+  background-color: #e2bf65;
 }
 
 .ice {
-    background-color: #96D9D6;
+  background-color: #96d9d6;
 }
 
 .normal {
-    background-color: #A8A77A;
+  background-color: #a8a77a;
 }
 
 .poison {
-    background-color: #A33EA1;
+  background-color: #a33ea1;
 }
 
 .psychic {
-    background-color: #F95587;
+  background-color: #f95587;
 }
 
 .rock {
-    background-color: #B6A136;
+  background-color: #b6a136;
 }
 
 .steel {
-    background-color: #B7B7CE;
+  background-color: #b7b7ce;
 }
 
 .water {
-    background-color: #6390F0;
+  background-color: #6390f0;
 }
 
 .load-more {
-    display: flex;
-    justify-content: center;
-    margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
 }
 
 .load-more button {
-    font-family: 'Acme', sans-serif;
-    background-color: #363b81;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 30px;
-    font-size: 1em;
-    font-weight: bold;
-    color: #fbd743;
-    cursor: pointer;
-    transition: all 0.3s ease;
+  font-family: "Acme", sans-serif;
+  background-color: #363b81;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 30px;
+  font-size: 1em;
+  font-weight: bold;
+  color: #fbd743;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .load-more button:hover {
-    scale: 1.1;
+  scale: 1.1;
+}
+
+/* styles/pokemon.css */
+.pokemon-card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 250px;
+  padding: 15px;
+  margin: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.pokemon-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }

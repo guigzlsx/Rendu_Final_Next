@@ -13,8 +13,13 @@ interface PokemonData {
   results: Pokemon[];
 }
 
-async function getPokemons(limit: number, offset: number): Promise<PokemonData> {
-  const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`);
+async function getPokemons(
+  limit: number,
+  offset: number
+): Promise<PokemonData> {
+  const res = await fetch(
+    `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`
+  );
   if (!res.ok) {
     throw new Error("Failed to fetch pokemons");
   }
@@ -42,7 +47,12 @@ export default function Home() {
   return (
     <main>
       <div className="page-title">
-        <Image src="/images/pokemon.png" alt="Pokémon" width={500} height={200} />
+        <Image
+          src="/images/pokemon.png"
+          alt="Pokémon"
+          width={500}
+          height={200}
+        />
       </div>
       <div className="main-section">
         <div className="pokemon-grid">
