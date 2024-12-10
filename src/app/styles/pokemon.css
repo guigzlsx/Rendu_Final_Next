@@ -160,21 +160,3 @@ body {
 .load-more button:hover {
   scale: 1.1;
 }
-
-/* styles/pokemon.css */
-.pokemon-card {
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  width: 250px;
-  padding: 15px;
-  margin: 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-  text-align: center;
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-.pokemon-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}

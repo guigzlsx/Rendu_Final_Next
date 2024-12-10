@@ -1,10 +1,8 @@
-// page.tsx
 "use client";
-
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import "../../styles/pokemon.css";
+import "../../styles/card.css";
 
 interface PokemonData {
   sprites: {
@@ -28,10 +26,30 @@ interface PokemonData {
       name: string;
     };
   }[];
+  abilities: {
+    ability: {
+      name: string;
+    };
+  }[];
+  moves: {
+    move: {
+      name: string;
+      url: string; // URL pour obtenir les détails du mouvement
+    };
+  }[];
+  base_experience: number;
+}
+
+interface MoveDetails {
+  name: string;
+  power: number | null;
+  accuracy: number | null;
+  pp: number;
 }
 
 export default function PokemonDetails() {
   const [pokemonData, setPokemonData] = useState<PokemonData | null>(null);
+  const [moveDetails, setMoveDetails] = useState<MoveDetails[]>([]);
 
   useEffect(() => {
     const urlParts = window.location.pathname.split("/");
@@ -41,41 +59,97 @@ export default function PokemonDetails() {
       .then((response) => response.json())
       .then((data) => {
         setPokemonData(data);
+        // Fetch move details for the first 5 moves
+        const movesToFetch = data.moves.slice(0, 5);
+        return Promise.all(
+          movesToFetch.map((move: any) =>
+            fetch(move.move.url)
+              .then((res) => res.json())
+              .then((moveData) => ({
+                name: move.move.name,
+                power: moveData.power,
+                accuracy: moveData.accuracy,
+                pp: moveData.pp,
+              }))
+          )
+        );
       })
+      .then((moves) => setMoveDetails(moves))
       .catch((error) => {
         console.error("Error fetching Pokemon data:", error);
       });
   }, []);
 
   if (!pokemonData) {
-    return <div>Loading...</div>;
+    return <div className="loading-message">Loading...</div>;
   }
 
-  const { sprites, stats, height, weight, types } = pokemonData;
+  const { sprites, stats, height, weight, types, abilities, base_experience } =
+    pokemonData;
+  console.log(stats);
   const hp = stats.find((stat) => stat.stat.name === "hp")?.base_stat;
   const attack = stats.find((stat) => stat.stat.name === "attack")?.base_stat;
 
   return (
-    <main>
+    <div className="pokemon-details-container">
       <h1>Détails du Pokémon : {pokemonData.name}</h1>
-      <div className="pokemon-details">
-        <div className="pokemon-details-image">
-          <Image
-            src={sprites.other.home.front_default}
-            alt={pokemonData.name}
-            width={120}
-            height={120}
-          />
-        </div>
-        <div className="pokemon-details-info">
-          <p>HP: {hp}</p>
-          <p>Attack: {attack}</p>
-          <p>Height: {height}</p>
-          <p>Weight: {weight}</p>
-          <p>Types: {types.map((type) => type.type.name).join(", ")}</p>
-        </div>
+
+      <Image
+        src={sprites.other.home.front_default}
+        alt={pokemonData.name}
+        width={150}
+        height={150}
+      />
+
+      <p>
+        <span>HP:</span> {hp}
+      </p>
+      <p>
+        <span>Attack:</span> {attack}
+      </p>
+      <p>
+        <span>Height:</span> {height} decimetres
+      </p>
+      <p>
+        <span>Weight:</span> {weight} hectograms
+      </p>
+      <p>
+        <span>Base Experience:</span> {base_experience}
+      </p>
+
+      <div className="pokemon-types">
+        <span>Types:</span>{" "}
+        {types.map((type, index) => (
+          <span key={index} className={`pokemon-type ${type.type.name}`}>
+            {type.type.name}
+          </span>
+        ))}
       </div>
-      <Link href="/">Back to Pokédex</Link>
-    </main>
+
+      <div className="pokemon-abilities">
+        <h2>Abilities:</h2>
+        <ul>
+          {abilities.map((ability, index) => (
+            <li key={index}>{ability.ability.name}</li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="pokemon-moves">
+        <h2>Moves:</h2>
+        <ul>
+          {moveDetails.map((move, index) => (
+            <li key={index}>
+              <strong>{move.name}</strong> - Power: {move.power || "N/A"},
+              Accuracy: {move.accuracy || "N/A"}, PP: {move.pp}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <Link href="http://localhost:3000" className="back-to-pokedex">
+        Back to Pokédex
+      </Link>
+    </div>
   );
 }
