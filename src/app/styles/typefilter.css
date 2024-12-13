@@ -1,0 +1,26 @@
+.filter-section {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .filter-section select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    color: black;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+  }
+  
+  .filter-section select:hover {
+    border-color: #888;
+  }
+  
+  .filter-section select:focus {
+    outline: none;
+    border-color: #555;
+  }

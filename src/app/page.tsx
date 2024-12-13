@@ -3,11 +3,13 @@
 import { useState, useEffect } from "react";
 import PokemonCard from "./components/PokemonCard";
 import Searchbar from "./components/Searchbar";
+import TypeFilter from "./components/TypeFilter";
 import Image from "next/image";
 
 interface Pokemon {
   name: string;
   url: string;
+  types: string[];
 }
 
 interface PokemonData {
@@ -24,13 +26,25 @@ async function getPokemons(
   if (!res.ok) {
     throw new Error("Failed to fetch pokemons");
   }
-  return res.json();
+  const data = await res.json();
+  const detailedPokemons = await Promise.all(
+    data.results.map(async (pokemon: Pokemon) => {
+      const res = await fetch(pokemon.url);
+      const details = await res.json();
+      return {
+        ...pokemon,
+        types: details.types.map((typeInfo: { type: { name: string } }) => typeInfo.type.name),
+      };
+    })
+  );
+  return { results: detailedPokemons };
 }
 
 export default function Home() {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
   const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [selectedType, setSelectedType] = useState<string>("");
   const limit = 20;
 
   useEffect(() => {
@@ -47,6 +61,10 @@ export default function Home() {
     setLoading(false);
   };
 
+  const filteredPokemons = selectedType
+    ? pokemons.filter((pokemon) => pokemon.types && pokemon.types.includes(selectedType))
+    : pokemons;
+
   return (
     <main>
       <div className="page-title">
@@ -61,8 +79,9 @@ export default function Home() {
         <div className="searchbar">
           <Searchbar setSearchQuery={() => {}} />
         </div>
+        <TypeFilter selectedType={selectedType} setSelectedType={setSelectedType} />
         <div className="pokemon-grid">
-          {pokemons.map((pokemon, index) => (
+          {filteredPokemons.map((pokemon, index) => (
             <PokemonCard key={index} name={pokemon.name} />
           ))}
         </div>

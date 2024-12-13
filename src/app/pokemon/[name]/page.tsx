@@ -105,7 +105,7 @@ export default function PokemonDetails() {
 
   return (
     <div className="pokemon-details-container">
-      <h1>Détails du Pokémon : {pokemonData.name}</h1>
+      <h1>Pokémon details : {pokemonData.name}</h1>
 
       <Image
         src={sprites?.other?.home?.front_default || "/path/to/default/image.png"}
