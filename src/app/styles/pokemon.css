@@ -1,5 +1,5 @@
 body {
-  background-color: #5db9ff;
+  background-color: #5db9ff !important;
 }
 
 .page-title {
@@ -158,5 +158,48 @@ body {
 }
 
 .load-more button:hover {
+  scale: 1.1;
+}
+
+
+.searchbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
+
+.searchbar input {
+  background-color: white;
+  color: black;
+  height: 50px;
+  border: none;
+  border-radius: 5px;
+  padding: 0 20px;
+  font-size: 1.2em;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.searchbar input:focus {
+    outline: none;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.searchbar button {
+  background-color: #363b81;
+  color: #fbd743;
+  border: none;
+  border-radius: 5px;
+  height: 50px;
+  padding: 10px 30px;
+  font-size: 1em;
+  font-weight: bold;
+  margin-left: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.searchbar button:hover {
   scale: 1.1;
 }

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import "../../styles/card.css";
+import "../../styles/pokemon.css";
 
 interface PokemonData {
   sprites: {
@@ -34,7 +35,7 @@ interface PokemonData {
   moves: {
     move: {
       name: string;
-      url: string; // URL pour obtenir les détails du mouvement
+      url: string;
     };
   }[];
   base_experience: number;
@@ -42,6 +43,19 @@ interface PokemonData {
 
 interface MoveDetails {
   name: string;
+  power: number | null;
+  accuracy: number | null;
+  pp: number;
+}
+
+interface Move {
+  move: {
+    name: string;
+    url: string;
+  };
+}
+
+interface MoveData {
   power: number | null;
   accuracy: number | null;
   pp: number;
@@ -62,10 +76,10 @@ export default function PokemonDetails() {
         // Fetch move details for the first 5 moves
         const movesToFetch = data.moves.slice(0, 5);
         return Promise.all(
-          movesToFetch.map((move: any) =>
+          movesToFetch.map((move: Move) =>
             fetch(move.move.url)
               .then((res) => res.json())
-              .then((moveData) => ({
+              .then((moveData: MoveData) => ({
                 name: move.move.name,
                 power: moveData.power,
                 accuracy: moveData.accuracy,
@@ -86,7 +100,6 @@ export default function PokemonDetails() {
 
   const { sprites, stats, height, weight, types, abilities, base_experience } =
     pokemonData;
-  console.log(stats);
   const hp = stats.find((stat) => stat.stat.name === "hp")?.base_stat;
   const attack = stats.find((stat) => stat.stat.name === "attack")?.base_stat;
 
@@ -95,7 +108,7 @@ export default function PokemonDetails() {
       <h1>Détails du Pokémon : {pokemonData.name}</h1>
 
       <Image
-        src={sprites.other.home.front_default}
+        src={sprites?.other?.home?.front_default || "/path/to/default/image.png"}
         alt={pokemonData.name}
         width={150}
         height={150}
@@ -119,7 +132,7 @@ export default function PokemonDetails() {
 
       <div className="pokemon-types">
         <span>Types:</span>{" "}
-        {types.map((type, index) => (
+        {types?.map((type, index) => (
           <span key={index} className={`pokemon-type ${type.type.name}`}>
             {type.type.name}
           </span>
@@ -129,7 +142,7 @@ export default function PokemonDetails() {
       <div className="pokemon-abilities">
         <h2>Abilities:</h2>
         <ul>
-          {abilities.map((ability, index) => (
+          {abilities?.map((ability, index) => (
             <li key={index}>{ability.ability.name}</li>
           ))}
         </ul>
@@ -147,7 +160,7 @@ export default function PokemonDetails() {
         </ul>
       </div>
 
-      <Link href="http://localhost:3000" className="back-to-pokedex">
+      <Link href="/" className="back-to-pokedex">
         Back to Pokédex
       </Link>
     </div>

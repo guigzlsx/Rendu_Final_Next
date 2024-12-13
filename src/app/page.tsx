@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import PokemonCard from "./components/PokemonCard";
+import Searchbar from "./components/Searchbar";
 import Image from "next/image";
 
 interface Pokemon {
@@ -33,6 +34,8 @@ export default function Home() {
   const limit = 20;
 
   useEffect(() => {
+    setPokemons([]);
+    setOffset(0);
     loadMorePokemons();
   }, []);
 
@@ -55,9 +58,12 @@ export default function Home() {
         />
       </div>
       <div className="main-section">
+        <div className="searchbar">
+          <Searchbar setSearchQuery={() => {}} />
+        </div>
         <div className="pokemon-grid">
-          {pokemons.map((pokemon) => (
-            <PokemonCard key={pokemon.name} name={pokemon.name} />
+          {pokemons.map((pokemon, index) => (
+            <PokemonCard key={index} name={pokemon.name} />
           ))}
         </div>
         <div className="load-more">
